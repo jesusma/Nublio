@@ -6,18 +6,12 @@
     tools:context="${packageName}.${activityClass}" >
 
     <Button
-        android:id="@+id/link_button"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="117dp"
-        android:onClick="openMyDialog"
-        android:text="ver mi biblioteca" />
-    
-    <TextView 
-        android:id="@+id/test_output" 
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content"/>
+        android:layout_marginTop="145dp"
+        android:text="ver biblioteca" />
 
 </RelativeLayout>

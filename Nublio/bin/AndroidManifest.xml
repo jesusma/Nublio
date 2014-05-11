@@ -7,14 +7,14 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         <activity
             android:name="com.jesusma.nublio.MainActivity"
             android:label="@string/app_name" >
@@ -24,24 +24,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity android:name="com.dropbox.sync.android.DbxAuthActivity" />
-		<activity
-			android:name="com.dropbox.client2.android.AuthActivity"
-		  	android:launchMode="singleTask" >
-		  	<intent-filter>
-		    	<data android:scheme="db-p78hpiyefxd4p9z" />
-		    	<action android:name="android.intent.action.VIEW" />
-		    	<category android:name="android.intent.category.BROWSABLE" />
-		    	<category android:name="android.intent.category.DEFAULT" />
-		  	</intent-filter>
-		</activity>
-		<service
-		  	android:name="com.dropbox.sync.android.DbxSyncService"
-		  	android:enabled="true"
-		  	android:exported="false"
-		  	android:label="Dropbox Sync" />
-        
+        <activity
+            android:name="com.dropbox.client2.android.AuthActivity"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <data android:scheme="db-2s0d8d9owizdne4" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.dropbox.sync.android.DbxSyncService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="Dropbox Sync" />
+
+        <activity
+            android:name="com.jesusma.nublio.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.jesusma.nublio.DxLibrary"
+            android:label="@string/title_activity_dx_library" >
+        </activity>
     </application>
 
 </manifest>
