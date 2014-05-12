@@ -21,7 +21,7 @@ import com.dropbox.sync.android.DbxAccountManager;
 
 public class MainActivity extends Activity {
 
-	//Inicialización variables de autenticación
+	//Inicialización variables de autenticación específicas para Nublio
     private static final String appKey = "2s0d8d9owizdne4"; 
     private static final String appSecret = "kzhnaa85s2clrk8";
 
@@ -35,7 +35,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
     
     	super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);//Activity inicial
+        setContentView(R.layout.activity_main);
+        
+        //Autentificación con las credenciales de la app
+        mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), appKey, appSecret);
         
         mLinkButton = (Button) findViewById(R.id.button1);
         mLinkButton.setOnClickListener(new OnClickListener() {
@@ -43,13 +46,18 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
             	
-                onClickLinkToDropbox(); //Muestra la pantalla de login de dropbox
+            	 if(!mDbxAcctMgr.hasLinkedAccount()){
+            		//Muestra la pantalla de login de dropbox
+            		 onClickLinkToDropbox(); 
+                 }else{
+                	//si ya se ha establecido la conexión muestra directamente la lista de libros 
+                	 showBooks();
+                	 
+                 } 
                 
             }
             
         });
-       
-        mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), appKey, appSecret);
         
     }
 
@@ -70,8 +78,8 @@ public class MainActivity extends Activity {
             	
             	Toast.makeText(this, "Link to your Dropbox account OK", Toast.LENGTH_LONG).show();
             	Toast.makeText(this, "Reading you ebook library...", Toast.LENGTH_LONG).show();
-            	//Iniciamos la activity que moestrara lista de libros en pantalla
-            	startActivity(new Intent(this, DxLibrary.class));
+            	//Si el login ha sido correcto mostramos lista de libros
+            	showBooks();
              	
             } else {
             	
@@ -86,5 +94,11 @@ public class MainActivity extends Activity {
         }
     }
 
-   
+    // Inicia la actividad que muestra la lista de libros
+    private void showBooks(){
+    	
+        Intent intent = new Intent(this, DxLibrary.class);
+        startActivity(intent);
+        
+    } 
 }
