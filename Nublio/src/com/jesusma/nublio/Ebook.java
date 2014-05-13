@@ -1,5 +1,6 @@
 package com.jesusma.nublio;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /*
@@ -7,7 +8,7 @@ import java.util.Date;
  * elementos la lista lista de libros.
  */
 
-public class Ebook {
+public class Ebook implements Comparable<Ebook> {
 	
 	
     private String title;
@@ -40,7 +41,25 @@ public class Ebook {
     public void setTitle(String title) {
         this.title = title;
     }
- 
-    
 
+	
+    // Métodos para comparar partes de un objeto Ebook
+    
+    //Compara los atributis título de dos objetos Ebook
+    @Override
+    public int compareTo(Ebook ebook) {
+        return this.getTitle().compareTo(ebook.getTitle());
+    }
+
+   
+    
+    public static Comparator<Ebook> OrderByDate = new Comparator<Ebook>() {
+        //Compara el atributo fecha de dos Ebook dados
+        @Override
+        public int compare(Ebook ebook1, Ebook ebook2) {
+            return ebook1.getDate().compareTo(ebook2.getDate());
+        }
+
+    };
+ 
 }

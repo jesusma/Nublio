@@ -9,12 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jesusma.nublio.Ebook;
  
 /*
- * Adapter que forma cada línea de la lista de libros.
+ * Adapter que formará cada línea de la lista de libros.
  */
 
 public class EbookAdapter extends BaseAdapter {
@@ -64,11 +65,13 @@ public class EbookAdapter extends BaseAdapter {
 
         TextView title = (TextView)view.findViewById(R.id.Title);
         TextView date = (TextView)view.findViewById(R.id.Date);
+        ImageView image = (ImageView)view.findViewById(R.id.imageView1);
        
         Ebook ebook = (Ebook)data.get(position);
         title.setText(ebook.getTitle()); //Coge título del ebook y lo pone en la línea
         SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
         date.setText(d.format(ebook.getDate())); //Coge la fecha y la pone en la línea
+        image.findViewById(R.id.imageView1);
         
         return view; //Devuelve la línea
         

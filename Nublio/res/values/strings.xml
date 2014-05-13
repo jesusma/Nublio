@@ -2,8 +2,9 @@
 <resources>
 
     <string name="app_name">Nublio</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="ver_mi_biblioteca">ver mi biblioteca</string>
-    <string name="title_activity_dx_library">DxLibrary</string>
-
+     <string name="ver_mi_biblioteca">ver mi biblioteca</string>
+    <string name="title_activity_dx_library">Biblioteca</string>
+    <string name="Ordenar_por_nombre">Ordenar por nombre</string>
+    <string name="Ordenar_por_fecha">Ordenar por fecha</string>
+            
 </resources>

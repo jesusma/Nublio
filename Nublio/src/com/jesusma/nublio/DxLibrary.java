@@ -1,6 +1,7 @@
 package com.jesusma.nublio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +14,15 @@ import com.dropbox.sync.android.DbxPath;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.jesusma.nublio.EbookAdapter;
 
 /*
- * 
+ * Activity que muestra la lista de libros por pantalla
+ * y que permite ordenarlos por nombre o fecha
  */
 
 public class DxLibrary extends Activity {
@@ -31,9 +35,7 @@ public class DxLibrary extends Activity {
     private DbxAccountManager mDbxAcctMgr;
     private DbxFileSystem dbxFs;
     private Map<Ebook, DbxPath> eBooks = new HashMap<Ebook, DbxPath>();
-	
-    
-   
+  	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,60 @@ public class DxLibrary extends Activity {
 	    
 		eBooks.clear(); //Borramos lista
         ebookList(DbxPath.ROOT); //Invocamos metodo que lista los libros
-        
-        EbookAdapter adapter = new EbookAdapter(this, new ArrayList<Ebook>(eBooks.keySet())); // Creamos cada línea de la vista
+     
+        EbookAdapter adapter = new EbookAdapter(this, new ArrayList<Ebook>(eBooks.keySet())); //Guardamos las lineas de cada libro
         listView.setAdapter(adapter); //Mostramos la lista compuesta por cada línea creada antes
+		
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu (Menu menu){
+		
+		getMenuInflater().inflate(R.menu.men, menu);
+		return true;
+		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	
+	switch (item.getItemId()) {
+	// Elegimos entre las dos opciones del menú
+	case R.id.action_name:
+		
+        ListView listView = (ListView) findViewById(R.id.listView1);
+	    eBooks.clear(); 
+        ebookList(DbxPath.ROOT); 
+        List<Ebook> ebooks = new ArrayList<Ebook>(eBooks.keySet());
+		Collections.sort(ebooks); //Ordenamos por nombre 
+        EbookAdapter adapter = new EbookAdapter(this, new ArrayList<Ebook> (ebooks));
+        listView.setAdapter(adapter); 
+
+	    break;
+	
+	case R.id.action_date:
+		
+		ListView listView1 = (ListView) findViewById(R.id.listView1);
+	    eBooks.clear(); 
+        ebookList(DbxPath.ROOT); 
+        List<Ebook> ebooks1 = new ArrayList<Ebook>(eBooks.keySet());
+        Collections.sort(ebooks1, Ebook.OrderByDate);//Ordenamos por fecha
+       
+        EbookAdapter adapter1 = new EbookAdapter(this, new ArrayList<Ebook> (ebooks1));
+        listView1.setAdapter(adapter1);
+     
+        break;
+     
+     default:
+        
+        break;
+        
+	}
+	
+	return true;
+	
+	}
+ 
 	// Busca en la cuenta de DX y lista todos los libros por su título y fecha de creación
 	private void ebookList(DbxPath path){
 		
@@ -67,17 +118,17 @@ public class DxLibrary extends Activity {
             List<DbxFileInfo> fileList = dbxFs.listFolder(path);
 
             //Leemos cada elemento de la lista y comprobamos si es un .epub y si es así sacamos su título y fecha de creación
-            for(DbxFileInfo f: fileList){
-                if(f.path.toString().toUpperCase().endsWith(EXTENSION)){
-                    String title = f.path.toString().substring(f.path.toString().lastIndexOf("/") + 1, f.path.toString().length()-EXTENSION.length());
+            for(DbxFileInfo fInfo: fileList){
+                if(fInfo.path.toString().toUpperCase().endsWith(EXTENSION)){
+                    String title = fInfo.path.toString().substring(fInfo.path.toString().lastIndexOf("/") + 1, fInfo.path.toString().length()-EXTENSION.length());
                     //Con cada epub creamos un objeto ebook y le asignamos su título y fecha creación
                     Ebook ebook = new Ebook(); 
                     ebook.setTitle(title);
-                    Date date = f.modifiedTime;
+                    Date date = fInfo.modifiedTime;
                     ebook.setDate(date);
-                    eBooks.put(ebook, f.path); //Guardamos cada ebook en el HashMap eBooks 
-                if(f.isFolder){
-                    ebookList(f.path);
+                    eBooks.put(ebook, fInfo.path); //Guardamos cada ebook en el HashMap eBooks 
+                if(fInfo.isFolder){
+                    ebookList(fInfo.path);
                 }
                 }
             }
@@ -86,7 +137,6 @@ public class DxLibrary extends Activity {
             e.printStackTrace();
         }
   
+	}
 	
-	
-    }
 }
