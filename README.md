@@ -15,7 +15,7 @@ Nublio
 
 #Notas#
 
-- Se han usado las siguientes librerias externas 
+- Se han usado las siguientes librerias externas :
 
-       - Sync Api de Dropbox https://www.dropbox.com/developers/sync
-       - Epublib para el manejo de archivos .epub http://www.siegmann.nl/epublib/android
+       - Sync Api de Dropbox --> https://www.dropbox.com/developers/sync
+       - Epublib para el manejo de archivos .epub --> http://www.siegmann.nl/epublib/android
