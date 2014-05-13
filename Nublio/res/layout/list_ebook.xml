@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginLeft="50dp" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginLeft="50dp" 
+        android:longClickable="true"
+        />
 
     <TextView
         android:id="@+id/Date"
@@ -20,7 +22,9 @@
         android:layout_alignParentRight="true"
         android:paddingTop="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp" 
+        android:longClickable="true"
+        />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -28,6 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/Title"
-        android:src="@android:drawable/ic_input_get" />
+        android:src="@android:drawable/ic_input_get" 
+        android:longClickable="true"
+        />
 
 </RelativeLayout>

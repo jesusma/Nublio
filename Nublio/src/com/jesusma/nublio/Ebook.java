@@ -41,7 +41,6 @@ public class Ebook implements Comparable<Ebook> {
     public void setTitle(String title) {
         this.title = title;
     }
-
 	
     // Métodos para comparar partes de un objeto Ebook
     
